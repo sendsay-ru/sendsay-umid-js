@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const commonjs = require('@rollup/plugin-commonjs');
-const { nodeResolve } = require('@rollup/plugin-node-resolve');
-const { babel } = require('@rollup/plugin-babel');
-const { terser } = require('rollup-plugin-terser');
-const pkg = require('./package.json');
+import commonjs from '@rollup/plugin-commonjs';
+import dts from 'rollup-plugin-dts';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import { babel } from '@rollup/plugin-babel';
+import { terser } from 'rollup-plugin-terser';
+import pkg from './package.json';
 
 const GLOBAL_NAME = 'SENDSAY';
 
@@ -11,39 +11,53 @@ const extensions = [
   '.js', '.ts',
 ];
 
-module.exports = {
-  input: './src/index.ts',
+const ENTRY_POINT = './src/index.ts';
 
-  external: [],
+export default [
+  {
+    input: ENTRY_POINT,
 
-  plugins: [
-    nodeResolve({ extensions }),
+    external: [],
 
-    commonjs(),
+    plugins: [
+      nodeResolve({ extensions }),
 
-    babel({
-      extensions,
-      babelHelpers: 'runtime',
-      include: ['src/**/*'],
-    }),
-  ],
+      commonjs(),
 
-  output: [{
-    file: pkg.main,
-    format: 'cjs',
-  }, {
-    file: pkg.module,
-    format: 'es',
-  }, {
-    file: pkg.browser,
-    name: GLOBAL_NAME,
-    format: 'iife',
-    globals: {},
-  }, {
-    file: pkg.min,
-    name: GLOBAL_NAME,
-    format: 'iife',
-    plugins: [terser()],
-    globals: {},
-  }],
-};
+      babel({
+        extensions,
+        babelHelpers: 'runtime',
+        include: ['src/**/*'],
+      }),
+    ],
+
+    output: [{
+      file: pkg.main,
+      format: 'cjs',
+    }, {
+      file: pkg.module,
+      format: 'es',
+    }, {
+      file: pkg.browser,
+      name: GLOBAL_NAME,
+      sourcemap: true,
+      format: 'iife',
+      globals: {},
+      extend: true
+    }, {
+      file: pkg.min,
+      name: GLOBAL_NAME,
+      format: 'iife',
+      plugins: [terser()],
+      globals: {},
+    }],
+  },
+  {
+    input: ENTRY_POINT,
+    plugins: [dts()],
+    output: [{ 
+      file: pkg.types,
+      format: "es" 
+    }]
+  }
+];
