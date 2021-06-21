@@ -2,13 +2,24 @@ module.exports = {
   parser: '@typescript-eslint/parser',
 
   extends: [
+    'eslint-config-airbnb-base',
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended'
+    'plugin:@typescript-eslint/recommended',
   ],
 
   plugins: [
+    'eslint-plugin',
     'import',
+    '@typescript-eslint',
   ],
+
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
+  },
 
   rules: {
     curly: ['error', 'all'],
@@ -25,9 +36,22 @@ module.exports = {
 
     'no-console': 'off',
 
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+
     'import/no-extraneous-dependencies': ['error', {
       devDependencies: true,
     }],
+
+    'arrow-body-style': 'off',
 
     'no-constant-condition': ['error', {
       checkLoops: false,

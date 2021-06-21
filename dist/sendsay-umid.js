@@ -12,10 +12,6 @@
   };
 
   var UMID_KEY = 'SENDSAY_UMID_KEY';
-  /**
-   * Get umid
-   * @return Promise<string> 
-   */
 
   var get = function get() {
     return new Promise(function (resolve, reject) {
