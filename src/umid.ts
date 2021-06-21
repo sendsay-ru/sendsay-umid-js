@@ -1,11 +1,7 @@
-import {genUMID} from './utils';
+import { genUMID } from './utils';
 
 let UMID_KEY = 'SENDSAY_UMID_KEY';
 
-/**
- * Get umid
- * @return Promise<string> 
- */
 const get = (): Promise<string> => {
   return new Promise((resolve, reject) => {
     try {
@@ -33,5 +29,5 @@ const setKey = (key: string): void => {
 
 export const UMID = {
   get,
-  setKey
+  setKey,
 };
