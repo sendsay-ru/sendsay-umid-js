@@ -32,15 +32,15 @@ Key by default `SENDSAY_UMID_KEY`
 
 ## API
 
-### get()
+### get(): Promise<string>
 
 Get the current id. If it does not exist, then generate and write to localStorage.
 
 ```
-  const umid = UMID.get();
+  const umid = await UMID.get();
 ```
 
-### setKey(key: string)
+### setKey(key: string): void
 
 Set key for LocalStorage
 
