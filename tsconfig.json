@@ -8,8 +8,9 @@
     "esModuleInterop": true,
     "noUnusedLocals": true,
     "noImplicitAny": true,
-    "declarationDir": "dist/types",
     "declaration": true,
+    "removeComments": false,
+    "emitDeclarationOnly": true,
     "target": "esnext",
     "module": "esnext",
     "strict": true

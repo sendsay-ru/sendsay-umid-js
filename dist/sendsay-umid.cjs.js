@@ -13,23 +13,39 @@ var genUMID = function genUMID() {
 };
 
 var UMID_KEY = 'SENDSAY_UMID_KEY';
-var UMID = {
-  get: function get() {
-    return new Promise(function (resolve, reject) {
-      try {
-        var umid = localStorage.getItem(UMID_KEY);
+/**
+ * Get umid
+ * @return Promise<string> 
+ */
 
-        if (!umid) {
-          umid = genUMID();
-          localStorage.setItem(UMID_KEY, umid);
-        }
+var get = function get() {
+  return new Promise(function (resolve, reject) {
+    try {
+      var umid = localStorage.getItem(UMID_KEY);
 
-        resolve(umid);
-      } catch (e) {
-        reject(e);
+      if (!umid) {
+        umid = genUMID();
+        localStorage.setItem(UMID_KEY, umid);
       }
-    });
+
+      resolve(umid);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+var setKey = function setKey(key) {
+  if (!key) {
+    return;
   }
+
+  UMID_KEY = key;
+};
+
+var UMID = {
+  get: get,
+  setKey: setKey
 };
 
 exports.UMID = UMID;
