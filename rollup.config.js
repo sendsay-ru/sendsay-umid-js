@@ -43,7 +43,7 @@ export default [
       sourcemap: true,
       format: 'iife',
       globals: {},
-      extend: true
+      extend: true,
     }, {
       file: pkg.min,
       name: GLOBAL_NAME,
@@ -55,9 +55,9 @@ export default [
   {
     input: ENTRY_POINT,
     plugins: [dts()],
-    output: [{ 
+    output: [{
       file: pkg.types,
-      format: "es" 
-    }]
-  }
+      format: 'es',
+    }],
+  },
 ];
